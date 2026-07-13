@@ -1,0 +1,56 @@
+## Target directories
+[Bb]in/
+[Oo]bj/
+
+## Visual Studio cache and settings
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## Rider (JetBrains)
+.idea/
+*.sln.iml
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio 2015/2017/2019/2022 cache directories
+.vs/
+# Generated DB files
+*.sdf
+*.opensdf
+*.xml
+
+## Published output
+/publish/
+/Release/
+
+## Nesting profiles
+.pubxml
+*.pubxml.user
+
+## Node.js / Web frontend dependencies (para proyectos MVC con npm)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## User secrets y archivos de configuración locales
+# ¡IMPORTANTE! No subas contraseñas ni cadenas de conexión locales.
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+## Archivos del sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
