@@ -23,11 +23,21 @@ namespace BibliotecaMVC.Controllers
             return View();
         }
 
-        public IActionResult Libros()
+        public IActionResult Usuarios()
+        {
+            return View();
+
+        }
+
+        public IActionResult Prestamos()
         {
             return View();
         }
 
+        public IActionResult Acercade()
+        {
+            return View();
+        }
 
 
 
