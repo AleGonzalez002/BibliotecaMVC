@@ -1,62 +1,37 @@
-﻿@using BibliotecaMVC.Models
+@model IEnumerable<BibliotecaMVC.Models.Libro>
 @{
-	List<Libro> libros = ViewBag.Libros;
+    ViewData["Title"] = "Libros";
 }
-<h1>Catalogo de libros</h1>
-
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>
-				Id
-			</th>
-			<th>
-				Titulo
-			</th>
-			<th>
-				Autor
-			</th>
-			<th>
-				Categoria
-			</th>
-			<th>
-				Precio
-			</th>
-			<th>
-				Disponible
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var libro in libros)
-		{
-			<tr>
-				<td>
-					@libro.Id
-				</td>
-				<td>
-					@libro.Titulo
-				</td>
-				<td>
-					@libro.Autor
-				</td>
-				<td>
-					@libro.Categoria
-				</td>
-				<td>
-					@libro.Precio
-				</td>
-				<td>
-					@if (libro.Disponible)
-					{
-						<spam class="badge bg-success">Disponible</spam>
-					}
-					else
-					{
-						<spam class="badge bg-danger">Sin Existencia</spam>
-					}
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+<div class="d-flex align-items-center mb-3">
+    <h1>Catálogo de libros</h1>
+    <a asp-action="Create" class="btn btn-primary ms-auto">Agregar libro</a>
+</div>
+<div class="row">
+    @foreach (var libro in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="~/images/@libro.Imagen" class="card-img-top" alt="Portada de @libro.Titulo" style="height: 260px; object-fit: cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@libro.Titulo</h5>
+                    <p class="card-text mb-1">Autor: @libro.Autor</p>
+                    <p class="card-text mb-1">Categoría: @libro.Categoria</p>
+                    <p class="card-text">Precio: @libro.Precio.ToString("C")</p>
+                    @if (libro.Disponible)
+                    {
+                        <span class="badge bg-success">Disponible</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Sin existencia</span>
+                    }
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-info">Detalle</a>
+                    <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

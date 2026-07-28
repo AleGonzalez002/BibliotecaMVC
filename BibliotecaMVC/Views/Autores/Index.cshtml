@@ -1,8 +1,10 @@
 ﻿@using BibliotecaMVC.Models
 @model IEnumerable<Autor>
 
-<h1>Catálogo de autores</h1>
-
+<div class="d-flex align-items-center mb-3">
+	<h1>Catálogo de autores</h1>
+	<a asp-action="Create" class="btn btn-primary ms-auto">Agregar autor</a>
+</div>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -15,7 +17,6 @@
 			<th>Estado</th>
 			<th>Acciones</th>
 		</tr>
-		<a asp-action="Create" class="btn btn-primary">Crear</a>
 	</thead>
 	<tbody>
 		@foreach (var autor in Model)
@@ -38,7 +39,9 @@
 					}
 				</td>
 				<td>
-					<a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-warning">Editar</a>
+					<a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-info">Detalle</a>
+					<a asp-action="Edit" asp-route-id="@autor.Id" class="btn btn-sm btn-warning">Editar</a>
+					<a asp-action="Delete" asp-route-id="@autor.Id" class="btn btn-sm btn-danger">Eliminar</a>
 				</td>
 			</tr>
 		}

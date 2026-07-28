@@ -1,0 +1,26 @@
+@model BibliotecaMVC.Models.Libro
+@{
+    ViewData["Title"] = "Detalle del Libro";
+}
+
+<h1>@Model.Titulo</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/images/@Model.Imagen" class="img-fluid rounded" alt="Portada de @Model.Titulo" />
+    </div>
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-3">Autor</dt>
+            <dd class="col-sm-9">@Model.Autor</dd>
+            <dt class="col-sm-3">Categoría</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+            <dt class="col-sm-3">Precio</dt>
+            <dd class="col-sm-9">@Model.Precio.ToString("C")</dd>
+            <dt class="col-sm-3">Disponibilidad</dt>
+            <dd class="col-sm-9">@(Model.Disponible ? "Disponible" : "Sin existencia")</dd>
+        </dl>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</div>

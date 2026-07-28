@@ -12,5 +12,5 @@
 	<dt>Edad</dt>
 	<dd>@(DateTime.Now.Year - Model.FechaNacimiento.Year)</dd>
 </dl>
-
-<a asp-action="Index" class="btn-primary">Volver atras</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Index" class="btn btn-primary">Volver atras</a>
