@@ -1,60 +1,44 @@
 ﻿@using BibliotecaMVC.Models
-@{
-	List<Autor> autores = ViewBag.autores;
-}
-<h1>Catalogo de autores</h1>
+@model IEnumerable<Autor>
+
+<h1>Catálogo de autores</h1>
 
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>
-				Id
-			</th>
-			<th>
-				Nombre
-			</th>
-			<th>
-				Apellido
-			</th>
-			<th>
-				Nacionalidad
-			</th>
-			<th>
-				Fecha de Nacimiento
-			</th>
-			<th>
-				Estado
-			</th>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Nacionalidad</th>
+			<th>Fecha de Nacimiento</th>
+			<th>Edad</th>
+			<th>Estado</th>
+			<th>Acciones</th>
 		</tr>
+		<a asp-action="Create" class="btn btn-primary">Crear</a>
 	</thead>
 	<tbody>
-		@foreach (var autor in autores)
+		@foreach (var autor in Model)
 		{
 			<tr>
-				<td>
-					@autor.Id
-				</td>
-				<td>
-					@autor.Nombre
-				</td>
-				<td>
-					@autor.Apellido
-				</td>
-				<td>
-					@autor.Nacionalidad
-				</td>
-				<td>
-					@autor.FechaNacimiento
-				</td>
+				<td>@autor.Id</td>
+				<td>@autor.Nombre</td>
+				<td>@autor.Apellido</td>
+				<td>@autor.Nacionalidad</td>
+				<td>@autor.FechaNacimiento.ToShortDateString()</td>
+				<td>@(DateTime.Now.Year - autor.FechaNacimiento.Year)</td>
 				<td>
 					@if (autor.Activo)
 					{
-						<spam class="badge bg-success">Si</spam>
+						<span class="badge bg-success">Sí</span>
 					}
 					else
 					{
-						<spam class="badge bg-danger">No</spam>
+						<span class="badge bg-danger">No</span>
 					}
+				</td>
+				<td>
+					<a asp-action="Details" asp-route-id="@autor.Id" class="btn btn-sm btn-warning">Editar</a>
 				</td>
 			</tr>
 		}

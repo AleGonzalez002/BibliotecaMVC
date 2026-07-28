@@ -5,11 +5,9 @@ namespace BibliotecaMVC.Controllers
 {
     public class AutoresController : Controller
     {
-        public IActionResult Index()
+        private static readonly List<Autor> autores = new List<Autor>()
         {
-            List<Autor> autores = new List<Autor>()
-            {
-                new Autor { 
+            new Autor {
                 Id = 1,
                 Nombre = "Dennis",
                 Apellido = "Gonzalez",
@@ -17,7 +15,7 @@ namespace BibliotecaMVC.Controllers
                 FechaNacimiento= new DateTime(2006, 9, 21),
                 Activo = true
             },
-               new Autor
+            new Autor
             {
                 Id = 2,
                 Nombre = "William",
@@ -52,11 +50,109 @@ namespace BibliotecaMVC.Controllers
                 Nacionalidad = "Reino Unido",
                 FechaNacimiento = new DateTime(1775, 12, 16),
                 Activo = false
-            },
+            }
+        };
 
-            };
-            ViewBag.autores = autores;
+        public IActionResult Index()
+        {
+            return View(autores);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var autor = autores.FirstOrDefault(x => x.Id == id);
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return View(autor);
+        }
+
+        public IActionResult Create()
+        {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Autor autor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(autor);
+            }
+
+            if (autores.Any())
+            {
+                autor.Id = autores.Max(x => x.Id) + 1;
+            }
+            else
+            {
+                autor.Id = 1;
+            }
+
+            autores.Add(autor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var autor = autores.FirstOrDefault(x => x.Id == id);
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return View(autor);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Autor autorModificado)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(autorModificado);
+            }
+
+            var autorExistente = autores.FirstOrDefault(x => x.Id == autorModificado.Id);
+            if (autorExistente == null)
+            {
+                return NotFound();
+            }
+
+            autorExistente.Nombre = autorModificado.Nombre;
+            autorExistente.Apellido = autorModificado.Apellido;
+            autorExistente.Nacionalidad = autorModificado.Nacionalidad;
+            autorExistente.FechaNacimiento = autorModificado.FechaNacimiento;
+            autorExistente.Activo = autorModificado.Activo;
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var autor = autores.FirstOrDefault(x => x.Id == id);
+            if (autor == null)
+            {
+                return NotFound();
+            }
+
+            return View(autor);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var autor = autores.FirstOrDefault(x => x.Id == id);
+            if (autor != null)
+            {
+                autores.Remove(autor); 
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
