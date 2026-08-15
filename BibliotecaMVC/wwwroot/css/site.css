@@ -31,6 +31,34 @@ body {
   text-align: start;
 }
 
+/* Inicio: Flexbox para acciones y sección informativa. */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Inicio: Grid para distribuir los servicios de la biblioteca. */
+.home-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.home-reader-section {
+  display: flex;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.home-reader-info {
+  flex: 1 1 35%;
+}
+
+.home-reader-faq {
+  flex: 1 1 60%;
+}
+
 /* Página Acerca de: estilos CSS3 con estructura semántica */
 .about-hero {
   padding: 3rem 2rem;
@@ -66,7 +94,7 @@ body {
   margin-bottom: 2rem;
 }
 
-.about-story, .about-services, .about-values {
+.info-card, .about-values {
   padding: 1.75rem;
   background: #fff;
   border: 1px solid #e1e7eb;
@@ -93,13 +121,13 @@ body {
   gap: 1rem;
 }
 
-.about-values-grid article {
+.feature-card {
   padding: 1rem;
   background-color: #eef6f6;
   border-left: 4px solid #2c7a7b;
 }
 
-.about-values-grid h3 {
+.feature-card h3 {
   color: #1f4b6e;
   font-size: 1.15rem;
 }
@@ -109,11 +137,21 @@ body {
     padding: 2.25rem 1.25rem;
   }
 
-  .about-content, .about-values-grid {
+  .about-content, .about-values-grid, .home-card-grid {
     grid-template-columns: 1fr;
   }
 
-  .about-story, .about-services, .about-values {
+  .info-card, .about-values {
     padding: 1.25rem;
+  }
+
+  .home-reader-section {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .home-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

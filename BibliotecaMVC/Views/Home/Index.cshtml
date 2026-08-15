@@ -9,8 +9,10 @@
                 <span class="badge bg-warning text-dark mb-3">Biblioteca Virtual</span>
                 <h1 class="display-5 fw-bold">Tu próxima lectura comienza aquí</h1>
                 <p class="fs-5 mb-4">Explora libros, conoce autores y administra los préstamos de nuestra biblioteca desde un solo lugar.</p>
-                <a asp-controller="Libros" asp-action="Index" class="btn btn-light btn-lg me-2">Ver catálogo</a>
-                <a asp-controller="Home" asp-action="Acercade" class="btn btn-outline-light btn-lg">Conócenos</a>
+                <div class="home-actions">
+                    <a asp-controller="Libros" asp-action="Index" class="btn btn-light btn-lg">Ver catálogo</a>
+                    <a asp-controller="Home" asp-action="Acercade" class="btn btn-outline-light btn-lg">Conócenos</a>
+                </div>
             </div>
             <div class="col-lg-4 text-center d-none d-lg-block" aria-hidden="true">
                 <div class="display-1">📚</div>
@@ -24,52 +26,44 @@
         <h2 id="servicios-title">Explora la biblioteca</h2>
         <p class="text-muted">Accede rápidamente a nuestros principales servicios.</p>
     </div>
-    <div class="row g-4">
-        <div class="col-md-6 col-lg-3">
-            <article class="card h-100 shadow-sm border-0">
+    <div class="home-card-grid">
+        <article class="card h-100 shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="fs-1 mb-2">📖</div>
                     <h3 class="h4 card-title">Catálogo</h3>
                     <p class="card-text text-muted">Encuentra obras para todos los gustos y edades.</p>
                     <a asp-controller="Libros" asp-action="Index" class="btn btn-primary">Ver libros</a>
                 </div>
-            </article>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <article class="card h-100 shadow-sm border-0">
+        </article>
+        <article class="card h-100 shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="fs-1 mb-2">✍️</div>
                     <h3 class="h4 card-title">Autores</h3>
                     <p class="card-text text-muted">Descubre a los escritores que dan vida a cada historia.</p>
                     <a asp-controller="Autores" asp-action="Index" class="btn btn-primary">Ver autores</a>
                 </div>
-            </article>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <article class="card h-100 shadow-sm border-0">
+        </article>
+        <article class="card h-100 shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="fs-1 mb-2">🏷️</div>
                     <h3 class="h4 card-title">Categorías</h3>
                     <p class="card-text text-muted">Navega por literatura, ciencia, historia y mucho más.</p>
                     <a asp-controller="Home" asp-action="Categorias" class="btn btn-primary">Explorar temas</a>
                 </div>
-            </article>
-        </div>
-        <div class="col-md-6 col-lg-3">
-            <article class="card h-100 shadow-sm border-0">
+        </article>
+        <article class="card h-100 shadow-sm border-0">
                 <div class="card-body text-center">
                     <div class="fs-1 mb-2">🔄</div>
                     <h3 class="h4 card-title">Préstamos</h3>
                     <p class="card-text text-muted">Consulta y administra los préstamos de los lectores.</p>
                     <a asp-controller="Home" asp-action="Prestamos" class="btn btn-primary">Ir a préstamos</a>
                 </div>
-            </article>
-        </div>
+        </article>
     </div>
 </section>
 
-<section class="row g-4 mb-4" aria-labelledby="novedades-title">
-    <div class="col-lg-5">
+<section class="home-reader-section mb-4" aria-labelledby="novedades-title">
+    <div class="home-reader-info">
         <div class="p-4 h-100 bg-light rounded-3 border">
             <h2 id="novedades-title" class="h3">Servicios para lectores</h2>
             <p>En nuestra Biblioteca Virtual puedes consultar el catálogo, conocer nuevos autores y gestionar tus préstamos de forma sencilla.</p>
@@ -77,7 +71,7 @@
             <span class="badge text-bg-info">Conocimiento</span>
         </div>
     </div>
-    <div class="col-lg-7">
+    <div class="home-reader-faq">
         <div class="accordion" id="bibliotecaAccordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="preguntaUno">
