@@ -1,19 +1,21 @@
 using BibliotecaMVC.Models;
+using BibliotecaMVC.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaMVC.Controllers
 {
     public class LibrosController : Controller
     {
-        private static readonly List<Libro> libros = new List<Libro>()
+        private readonly IRepositorioLibro _repositorioLibro;
+
+        public LibrosController(IRepositorioLibro repositorioLibro)
         {
-            new Libro { Id = 1, Titulo = "La Odisea", Autor = "Homero", Categoria = "Epopeya", Precio = 35.60M, Disponible = true, Imagen = "odisea.jpg" },
-            new Libro { Id = 2, Titulo = "Don Quijote de la Mancha", Autor = "Miguel de Cervantes", Categoria = "Novela", Precio = 28.50M, Disponible = true, Imagen = "donquijote.jpg" },
-            new Libro { Id = 3, Titulo = "Orgullo y prejuicio", Autor = "Jane Austen", Categoria = "Romance", Precio = 22.00M, Disponible = false, Imagen = "orgullo.jpg" }
-        };
+            _repositorioLibro = repositorioLibro;
+        }
 
         public IActionResult Index()
         {
+            var libros = _repositorioLibro.ObtenerTodos();
             return View(libros);
         }
 
