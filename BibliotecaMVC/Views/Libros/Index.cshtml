@@ -27,9 +27,7 @@
                     }
                 </div>
                 <div class="card-footer">
-                    <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-info">Detalle</a>
-                    <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                    <span class="text-muted small">Código: @libro.Id</span>
                 </div>
             </div>
         </div>
