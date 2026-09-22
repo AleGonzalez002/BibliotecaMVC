@@ -3,18 +3,24 @@
     ViewData["Title"] = "Eliminar Libro";
 }
 
-<h1>Eliminar libro</h1>
-<p>¿Está seguro que desea eliminar el libro @Model.Titulo?</p>
+<div class="card border-danger shadow-sm">
+    <div class="card-body p-4">
+        <h1 class="h3 text-danger">Eliminar libro</h1>
+        <p class="mb-4">¿Estás seguro de eliminar <strong>@Model.Titulo</strong>? Esta acción no se puede deshacer.</p>
 
-<dl class="row">
-    <dt class="col-sm-3">Autor</dt>
-    <dd class="col-sm-9">@Model.Autor</dd>
-    <dt class="col-sm-3">Categoría</dt>
-    <dd class="col-sm-9">@Model.Categoria</dd>
-</dl>
+        <dl class="row mb-4">
+            <dt class="col-sm-3">Autor</dt>
+            <dd class="col-sm-9">@Model.Autor</dd>
+            <dt class="col-sm-3">Categoría</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+            <dt class="col-sm-3">Precio</dt>
+            <dd class="col-sm-9">@Model.Precio.ToString("C")</dd>
+        </dl>
 
-<form asp-action="DeleteConfirmed" method="post">
-    <input asp-for="Id" type="hidden" />
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+        <form asp-action="DeleteConfirmed" method="post" class="d-flex gap-2">
+            <input asp-for="Id" type="hidden" />
+            <button type="submit" class="btn btn-danger">Sí, eliminar libro</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>

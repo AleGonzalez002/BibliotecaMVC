@@ -2,21 +2,40 @@
 @{
     ViewData["Title"] = "Libros";
 }
-<div class="d-flex align-items-center mb-3">
-    <h1>Catálogo de libros</h1>
-    <a asp-action="Create" class="btn btn-primary ms-auto">Agregar libro</a>
+<div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+    <div>
+        <h1 class="mb-1">Catálogo de libros</h1>
+        <p class="text-muted mb-0">Administra los libros registrados en la biblioteca.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary ms-auto">+ Agregar libro</a>
 </div>
-<div class="row">
+
+@if (TempData["MensajeExito"] is string mensaje)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @mensaje
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No hay libros registrados todavía. Usa <strong>Agregar libro</strong> para crear el primero.
+    </div>
+}
+
+<div class="row g-4">
     @foreach (var libro in Model)
     {
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 shadow-sm border-0">
                 <img src="~/images/@libro.Imagen" class="card-img-top" alt="Portada de @libro.Titulo" style="height: 260px; object-fit: cover;" />
                 <div class="card-body">
                     <h5 class="card-title">@libro.Titulo</h5>
                     <p class="card-text mb-1">Autor: @libro.Autor</p>
                     <p class="card-text mb-1">Categoría: @libro.Categoria</p>
-                    <p class="card-text">Precio: @libro.Precio.ToString("C")</p>
+                    <p class="card-text fw-semibold">Precio: @libro.Precio.ToString("C")</p>
                     @if (libro.Disponible)
                     {
                         <span class="badge bg-success">Disponible</span>
@@ -26,8 +45,12 @@
                         <span class="badge bg-danger">Sin existencia</span>
                     }
                 </div>
-                <div class="card-footer">
+                <div class="card-footer bg-white border-0 d-flex align-items-center gap-2">
                     <span class="text-muted small">Código: @libro.Id</span>
+                    <div class="ms-auto">
+                        <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </div>
                 </div>
             </div>
         </div>

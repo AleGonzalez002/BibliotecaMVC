@@ -3,9 +3,13 @@
     ViewData["Title"] = "Agregar Libro";
 }
 
-<h1>Agregar libro</h1>
+<div class="mb-4">
+    <h1 class="mb-1">Agregar libro</h1>
+    <p class="text-muted mb-0">Completa la información para incorporarlo al catálogo.</p>
+</div>
 
-<form asp-action="Create" method="post">
+<form asp-action="Create" method="post" class="card shadow-sm border-0 p-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
     <div class="mb-3">
         <label asp-for="Titulo"></label>
         <input asp-for="Titulo" class="form-control" />
@@ -23,7 +27,7 @@
     </div>
     <div class="mb-3">
         <label asp-for="Precio"></label>
-        <input asp-for="Precio" class="form-control" />
+        <input asp-for="Precio" class="form-control" min="0.01" step="0.01" />
         <span asp-validation-for="Precio" class="text-danger"></span>
     </div>
     <div class="mb-3">
@@ -35,8 +39,10 @@
         <input asp-for="Disponible" class="form-check-input" />
         <label asp-for="Disponible" class="form-check-label"></label>
     </div>
-    <button type="submit" class="btn btn-success">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-success">Guardar libro</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
 </form>
 
 @section Scripts {
