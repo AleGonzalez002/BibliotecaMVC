@@ -1,6 +1,8 @@
 using BibliotecaMVC.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using BibliotecaMVC.Security;
 
 namespace BibliotecaMVC.Controllers
 {
@@ -71,6 +73,7 @@ namespace BibliotecaMVC.Controllers
             var resultado = await userManager.CreateAsync(usuario, modelo.Password);
             if (resultado.Succeeded)
             {
+                await userManager.AddToRoleAsync(usuario, Roles.Usuario);
                 await signInManager.SignInAsync(usuario, false);
                 return RedirectToAction("Index", "Home");
             }
@@ -89,6 +92,12 @@ namespace BibliotecaMVC.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccesoDenegado()
+        {
+            return View();
         }
     }
 }

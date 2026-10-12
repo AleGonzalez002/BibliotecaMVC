@@ -2,9 +2,12 @@ using BibliotecaMVC.Data;
 using BibliotecaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using BibliotecaMVC.Security;
 
 namespace BibliotecaMVC.Controllers
 {
+    [Authorize]
     public class LibrosController : Controller
     {
         private readonly BibliotecaContext _context;
@@ -23,6 +26,7 @@ namespace BibliotecaMVC.Controllers
             return View(libros);
         }
 
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult Create()
         {
             return View();
@@ -30,6 +34,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult Create(Libro libro)
         {
             if (!ModelState.IsValid)
@@ -48,6 +53,7 @@ namespace BibliotecaMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult Edit(int id)
         {
             var libro = _context.Libros.Find(id);
@@ -56,6 +62,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult Edit(Libro libro)
         {
             if (!ModelState.IsValid)
@@ -82,6 +89,7 @@ namespace BibliotecaMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult Delete(int id)
         {
             var libro = _context.Libros.Find(id);
@@ -90,6 +98,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Administrador)]
         public IActionResult DeleteConfirmed(int id)
         {
             var libro = _context.Libros.Find(id);

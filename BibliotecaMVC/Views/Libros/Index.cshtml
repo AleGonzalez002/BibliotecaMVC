@@ -7,7 +7,10 @@
         <h1 class="mb-1">Catálogo de libros</h1>
         <p class="text-muted mb-0">Administra los libros registrados en la biblioteca.</p>
     </div>
-    <a asp-action="Create" class="btn btn-primary ms-auto">+ Agregar libro</a>
+    @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador) || User.IsInRole(BibliotecaMVC.Security.Roles.Bibliotecario))
+    {
+        <a asp-action="Create" class="btn btn-primary ms-auto">+ Agregar libro</a>
+    }
 </div>
 
 @if (TempData["MensajeExito"] is string mensaje)
@@ -20,9 +23,7 @@
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info">
-        No hay libros registrados todavía. Usa <strong>Agregar libro</strong> para crear el primero.
-    </div>
+    <div class="alert alert-info">No hay libros registrados todavía.</div>
 }
 
 <div class="row g-4">
@@ -47,10 +48,16 @@
                 </div>
                 <div class="card-footer bg-white border-0 d-flex align-items-center gap-2">
                     <span class="text-muted small">Código: @libro.Id</span>
-                    <div class="ms-auto">
-                        <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Editar</a>
-                        <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
-                    </div>
+                    @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador) || User.IsInRole(BibliotecaMVC.Security.Roles.Bibliotecario))
+                    {
+                        <div class="ms-auto">
+                            <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                            @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador))
+                            {
+                                <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </div>
