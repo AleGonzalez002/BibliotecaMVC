@@ -20,7 +20,10 @@
             <dt class="col-sm-3">Disponibilidad</dt>
             <dd class="col-sm-9">@(Model.Disponible ? "Disponible" : "Sin existencia")</dd>
         </dl>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+        @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador) || User.IsInRole(BibliotecaMVC.Security.Roles.Bibliotecario))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+        }
         <a asp-action="Index" class="btn btn-secondary">Volver</a>
     </div>
 </div>

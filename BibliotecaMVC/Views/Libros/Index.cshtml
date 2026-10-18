@@ -48,9 +48,10 @@
                 </div>
                 <div class="card-footer bg-white border-0 d-flex align-items-center gap-2">
                     <span class="text-muted small">Código: @libro.Id</span>
+                    <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-secondary ms-auto">Ver</a>
                     @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador) || User.IsInRole(BibliotecaMVC.Security.Roles.Bibliotecario))
                     {
-                        <div class="ms-auto">
+                        <div>
                             <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Editar</a>
                             @if (User.IsInRole(BibliotecaMVC.Security.Roles.Administrador))
                             {

@@ -2,7 +2,8 @@ namespace BibliotecaMVC.Security;
 
 public static class Roles
 {
-    public const string Administrador = "Administrador";
+    // El nombre del rol sigue la matriz de permisos de la actividad.
+    public const string Administrador = "Admin";
     public const string Bibliotecario = "Bibliotecario";
     public const string Usuario = "Usuario";
 

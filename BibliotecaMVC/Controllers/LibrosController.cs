@@ -7,7 +7,7 @@ using BibliotecaMVC.Security;
 
 namespace BibliotecaMVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Administrador + "," + Roles.Bibliotecario + "," + Roles.Usuario)]
     public class LibrosController : Controller
     {
         private readonly BibliotecaContext _context;
@@ -24,6 +24,12 @@ namespace BibliotecaMVC.Controllers
                 .OrderBy(libro => libro.Titulo)
                 .ToList();
             return View(libros);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var libro = _context.Libros.AsNoTracking().FirstOrDefault(item => item.Id == id);
+            return libro is null ? NotFound() : View(libro);
         }
 
         [Authorize(Roles = Roles.GestionLibros)]
@@ -89,7 +95,7 @@ namespace BibliotecaMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = Roles.Administrador)]
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult Delete(int id)
         {
             var libro = _context.Libros.Find(id);
@@ -98,7 +104,7 @@ namespace BibliotecaMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Roles.Administrador)]
+        [Authorize(Roles = Roles.GestionLibros)]
         public IActionResult DeleteConfirmed(int id)
         {
             var libro = _context.Libros.Find(id);

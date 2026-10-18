@@ -67,7 +67,27 @@ using (var scope = app.Services.CreateScope())
     {
         if (!roleManager.RoleExistsAsync(role).GetAwaiter().GetResult())
         {
-            roleManager.CreateAsync(new IdentityRole(role)).GetAwaiter().GetResult();
+            var resultado = roleManager.CreateAsync(new IdentityRole(role)).GetAwaiter().GetResult();
+            if (!resultado.Succeeded)
+            {
+                throw new InvalidOperationException($"No se pudo crear el rol '{role}': {string.Join(", ", resultado.Errors.Select(error => error.Description))}");
+            }
+        }
+    }
+
+    // Conserva los permisos de administradores creados con el nombre anterior.
+    if (roleManager.RoleExistsAsync("Administrador").GetAwaiter().GetResult())
+    {
+        foreach (var usuario in userManager.GetUsersInRoleAsync("Administrador").GetAwaiter().GetResult())
+        {
+            if (!userManager.IsInRoleAsync(usuario, Roles.Administrador).GetAwaiter().GetResult())
+            {
+                var resultado = userManager.AddToRoleAsync(usuario, Roles.Administrador).GetAwaiter().GetResult();
+                if (!resultado.Succeeded)
+                {
+                    throw new InvalidOperationException($"No se pudo migrar '{usuario.UserName}' al rol Admin.");
+                }
+            }
         }
     }
 
@@ -77,7 +97,11 @@ using (var scope = app.Services.CreateScope())
     {
         if (!userManager.GetRolesAsync(user).GetAwaiter().GetResult().Any())
         {
-            userManager.AddToRoleAsync(user, Roles.Usuario).GetAwaiter().GetResult();
+            var resultado = userManager.AddToRoleAsync(user, Roles.Usuario).GetAwaiter().GetResult();
+            if (!resultado.Succeeded)
+            {
+                throw new InvalidOperationException($"No se pudo asignar el rol Usuario a '{user.UserName}'.");
+            }
         }
     }
 
@@ -93,7 +117,11 @@ using (var scope = app.Services.CreateScope())
             var usuario = userManager.FindByEmailAsync(correo).GetAwaiter().GetResult();
             if (usuario is not null && !userManager.IsInRoleAsync(usuario, rol).GetAwaiter().GetResult())
             {
-                userManager.AddToRoleAsync(usuario, rol).GetAwaiter().GetResult();
+                var resultado = userManager.AddToRoleAsync(usuario, rol).GetAwaiter().GetResult();
+                if (!resultado.Succeeded)
+                {
+                    throw new InvalidOperationException($"No se pudo asignar el rol '{rol}' a '{usuario.UserName}'.");
+                }
             }
         }
     }
